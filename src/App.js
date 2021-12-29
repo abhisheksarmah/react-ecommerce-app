@@ -1,5 +1,6 @@
 import Header from "./components/Header";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
 import ProductListing from "./components/ProductListing";
 import ProductDetail from "./components/ProductDetail";
 function App() {

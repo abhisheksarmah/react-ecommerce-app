@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import productsApi from "../api/productsApi";
 import {
-  selectedProduct,
+  fetchProduct,
   removeSelectedProduct,
 } from "../redux/actions/productActions";
 
@@ -12,15 +11,9 @@ export default function ProductDetail() {
   const { image, title, price, category, description } = product;
   const { productId } = useParams();
   const dispatch = useDispatch();
-  const fetchProductDetail = async () => {
-    const response = await productsApi
-      .get(`/products/${productId}`)
-      .catch((err) => console.log("Err", err));
-    dispatch(selectedProduct(response.data));
-  };
 
   useEffect(() => {
-    if (productId && productId !== "") fetchProductDetail();
+    if (productId && productId !== "") dispatch(fetchProduct(productId));
     return () => {
       dispatch(removeSelectedProduct());
     };

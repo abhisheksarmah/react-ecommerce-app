@@ -1,10 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../redux/actions/userActions";
 
 export default function Registration() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     reset,
@@ -34,8 +36,10 @@ export default function Registration() {
       },
       phone: "1-570-236-7033",
     };
-    dispatch(registerUser(requestData));
-    reset();
+    dispatch(registerUser(requestData)).then(() => {
+      reset();
+      navigate("/settings");
+    });
   };
   const yourPasswordRule = register("password", {
     required: {
@@ -48,7 +52,6 @@ export default function Registration() {
     },
   });
   yourPasswordRule.current = watch("password", "");
-  console.log(yourPasswordRule);
 
   return (
     <div className="ui container center">

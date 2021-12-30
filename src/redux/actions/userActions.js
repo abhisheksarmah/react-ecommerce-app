@@ -5,9 +5,13 @@ export const registerUser = (requestData) => async (dispatch) => {
   const response = await ecommerceApi
     .post("/users", requestData)
     .catch((err) => console.log("Err" + err));
-  dispatch(setUser(response.data));
+  dispatch(loginUser(response.data));
 };
 
-export const setUser = (user) => {
-  return { type: actionTypes.SET_USER, payload: user };
+export const loginUser = (requestData) => (dispatch) => {
+  dispatch(setUser(requestData));
+};
+
+export const setUser = (userData) => {
+  return { type: actionTypes.SET_USER, payload: userData };
 };

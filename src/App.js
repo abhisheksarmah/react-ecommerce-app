@@ -4,6 +4,8 @@ import "./App.css";
 import ProductListing from "./components/ProductListing";
 import ProductDetail from "./components/ProductDetail";
 import Registration from "./components/Registration";
+import Settings from "./components/Settings";
+import RequireAuth from "./RequireAuth";
 function App() {
   return (
     <div className="App">
@@ -13,7 +15,15 @@ function App() {
           <Route path="/" element={<ProductListing />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/products/:productId" element={<ProductDetail />} />
-          <Route>404 not found!</Route>
+          <Route path="*" element={<div>404 not found!</div>} />
+          <Route
+            path="/settings"
+            element={
+              <RequireAuth redirectTo="/">
+                <Settings />
+              </RequireAuth>
+            }
+          />
         </Routes>
       </Router>
     </div>

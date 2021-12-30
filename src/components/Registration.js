@@ -1,8 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import ecommerceApi from "../api/ecommerceApi";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../redux/actions/userActions";
 
 export default function Registration() {
+  const dispatch = useDispatch();
   const {
     register,
     reset,
@@ -10,7 +12,7 @@ export default function Registration() {
     formState: { errors },
     watch,
   } = useForm();
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     const { email, name, password } = data;
     const requestData = {
       email,
@@ -32,7 +34,7 @@ export default function Registration() {
       },
       phone: "1-570-236-7033",
     };
-    const response = await ecommerceApi.post("/users", requestData);
+    dispatch(registerUser(requestData));
     reset();
   };
   const yourPasswordRule = register("password", {
